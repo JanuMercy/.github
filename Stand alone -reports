@@ -1,0 +1,63 @@
+package reports;
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class StandAlone{
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver = new EdgeDriver();
+	    driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://oeri2-dev.azure.chevron.com/");
+		Thread.sleep(4000);
+		System.out.println(driver.getCurrentUrl());
+		Thread.sleep(10000);
+		driver.findElement(By.xpath("//*[@id=\"column1\"]/div[2]/div[2]/div/div[1]/div[1]/div[1]/div[2]/a/span")).getText();
+		driver.findElement(By.xpath("/html/body/app-root/np-menu/nav/ul/li[2]/a")).click();
+		Thread.sleep(10000);
+				
+		WebElement dropDown = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[2]"));
+       	dropDown.click();
+		String desiredOption = "all";
+		List<WebElement> dropDownOptions = driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+		for (WebElement option : dropDownOptions) 
+		{
+	    if (option.getText().equalsIgnoreCase(desiredOption)) 
+		{
+		option.click();
+		System.out.println(option.getText());
+		break;
+		}
+        }
+		driver.findElement(By.xpath("//button[contains(text(),'reliability reports')]")).click();
+		Thread.sleep(5000);
+		WebElement dd = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[6]"));
+		dd.click();
+		String desiredOption1 = "Stand-alone actions";		
+		List<WebElement> dropDownOptions1 = driver.findElements(By.xpath("//nz-option-container//nz-option-item"));		
+		for (WebElement option1 : dropDownOptions1) 
+		{
+		if (option1.getText().equalsIgnoreCase(desiredOption1)) 		
+		{		
+		option1.click();
+		System.out.println(option1.getText());
+		break;
+		}
+		}
+		driver.findElement(By.xpath("//span[text()='display']")).click();
+		Thread.sleep(10000);
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("window.scrollBy(0,500)");
+		Thread.sleep(3000);
+		
+		
+        //driver.close();
+
+	}
+
+}
