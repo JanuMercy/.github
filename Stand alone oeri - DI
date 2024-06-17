@@ -1,0 +1,161 @@
+package dataInput;
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class DIStandAlone {
+	
+	public static WebDriver driver;
+	
+	public static void main(String[] janani) throws InterruptedException {
+	
+		driver = new EdgeDriver();
+	    driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://oerigl-dev.azure.chevron.com/");
+		Thread.sleep(4000);
+		System.out.println(driver.getCurrentUrl());
+		Thread.sleep(10000);
+		
+		//DataInput Tab
+		
+		driver.findElement(By.xpath("//nav[@id='site-specific-nav']//a[text()='data input']")).click();
+		
+		WebElement dataInput = driver.findElement(By.xpath("//nz-select-item[text()='Select']"));
+		dataInput.click();
+		String valueDI = "Stand alone action";
+		List<WebElement> allValue = driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+		
+		for (WebElement selection : allValue)
+		{
+			if(selection.getText().equalsIgnoreCase(valueDI))
+			{
+				selection.click();
+				System.out.println(selection.getText());
+				break;
+			}
+		}
+		Thread.sleep(4000);
+		
+		//unit dropdown
+		
+		 WebElement unitDropdwn = driver.findElement(By.xpath("//nz-select[@formcontrolname='unitLocId']//nz-select-top-control[contains(@class,'ant-select-selector')]")); 
+	     unitDropdwn.click();
+		 String unitName= "B&S ? 2BT ? CLAY FILTER/ADDITIVE ? 1619";
+    	 List<WebElement> allValueOfUnit = driver.findElements(By.xpath("//div[@id='cdk-overlay-1']//nz-option-container//nz-option-item"));
+     	 for (WebElement selection1 : allValueOfUnit)
+			{
+				if(selection1.getText().equalsIgnoreCase(unitName))
+				{
+					selection1.click();
+					System.out.println(selection1.getText());
+					break;
+				}
+			}
+		  Thread.sleep(4000); 
+		  
+		  //owner dropdown
+		  
+		  WebElement ownerDD = driver.findElement(By.xpath("//nz-select[@formcontrolname='ownerId']//nz-select-top-control[contains(@class,'ant-select-selector')]"));
+		  ownerDD.click();
+		  String ownerDDValue = "Aaron Church (HVHU)";
+		  List<WebElement> ownerOption = driver.findElements(By.xpath("//cdk-virtual-scroll-viewport[contains(@class,'cdk-virtual-scroll-viewport')]//div[@class='cdk-virtual-scroll-content-wrapper']//nz-option-item"));
+		  for (WebElement ownerSelection : ownerOption)
+		  {
+			  if(ownerSelection.getText().equalsIgnoreCase(ownerDDValue))
+			  {
+				  ownerSelection.click();
+				  System.out.println(ownerSelection.getText());
+				  break;
+			  }
+		  }
+		//calling datepicker method  
+		selectDate(15, "Jul", "2024");
+		
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(0,500);");
+		Thread.sleep(1000);
+		
+		
+		//entering text in title
+		WebElement title = driver.findElement(By.xpath("//textarea[@formcontrolname='title']"));
+		title.sendKeys("Testing");
+		//String title1 = title.getText();
+		System.out.println(title.getText());
+		Thread.sleep(1000);
+		
+		//entering text in action description 
+		WebElement actionDesp = driver.findElement(By.xpath("//textarea[@formcontrolname='actionDescription']"));
+		actionDesp.sendKeys("Perfoming testing action");
+			
+		//entering text in status
+		WebElement status = driver.findElement(By.xpath("//textarea[@formcontrolname='statusOrActionTaken']"));
+		status.sendKeys("Pass");
+			
+		JavascriptExecutor jse1 = (JavascriptExecutor) driver;
+		jse1.executeScript("window.scrollBy(600,0);");
+		Thread.sleep(1000);
+		
+		driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary']//span[text()='save']")).click();
+		
+
+//		// Switch the driver context to the alert
+	    //Alert alertDialog = driver.switchTo().alert();
+//
+//		// Get the alert text
+//		String alertText = alertDialog.getText();
+//
+//		// Click the OK button on the alert.
+       // alertDialog.accept();
+        driver.close();
+	}	
+		
+		public static void selectDate(int day, String month, String year) {
+			
+			WebElement datepicker = driver.findElement(By.xpath("//nz-date-picker[@formcontrolname='dueDate']"));
+	        datepicker.click();
+
+	        // Get the month and year details displayed in the date picker
+	        WebElement monthDetail = driver.findElement(By.xpath("//button[@title='Choose a month']"));
+	        String monthText = monthDetail.getText();
+	        WebElement yearDetail = driver.findElement(By.xpath("//button[@title='Choose a year']"));
+	        String yearText = yearDetail.getText();
+	        
+	        // Print the extracted month and year (for debugging purposes)
+	        //System.out.println(monthText);
+	        //System.out.println(yearText);
+
+	        // Loop until the desired month and year are reached
+	        while (!(monthText.equalsIgnoreCase(month) && yearText.equalsIgnoreCase(year))) {
+	            // Find and click the "Next Month" button
+	            WebElement monthNavigator = driver.findElement(By.xpath("//button[@class='ant-picker-header-next-btn']"));
+	            monthNavigator.click();
+
+	            // Refresh the month and year details after navigation
+	            monthDetail = driver.findElement(By.xpath("//button[@title='Choose a month']"));
+		        monthText = monthDetail.getText();
+		        yearDetail = driver.findElement(By.xpath("//button[@title='Choose a year']"));
+		        yearText = yearDetail.getText();
+
+	            // Print the extracted month and year after navigation (for debugging purposes)
+		        System.out.println(monthText);
+		        System.out.println(yearText);
+	        }
+
+	        try {
+	            // Click on the specified day within the selected month and year
+	            driver.findElement(By.xpath("//td[contains(@class,'ant-picker-cell ant-picker-cell-in-view')]//div[text()="+ day +"]")).click();
+	        } catch (Exception ex) {
+	            // Print any exceptions that occur during the click action
+	            ex.printStackTrace();
+	        }
+	  
+		}
+
+	
+		
+			}
