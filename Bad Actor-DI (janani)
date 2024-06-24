@@ -1,0 +1,135 @@
+package dataInput;
+
+import java.util.List;
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class DIBadActor {
+	
+	public static WebDriver driver;
+	
+	public static void main(String[] janani) throws InterruptedException {
+	
+		driver = new EdgeDriver();
+	    driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://oerigl-dev.azure.chevron.com/");
+		Thread.sleep(4000);
+		System.out.println(driver.getCurrentUrl());
+		Thread.sleep(10000);
+		
+		//DataInput Tab
+		
+		driver.findElement(By.xpath("//nav[@id='site-specific-nav']//a[text()='data input']")).click();
+		
+		WebElement dataInput = driver.findElement(By.xpath("//nz-select-item[text()='Select']"));
+		dataInput.click();
+		String valueDI = "Bad actor";
+		List<WebElement> allValue = driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+		
+		for (WebElement selection : allValue)
+		{
+			if(selection.getText().equalsIgnoreCase(valueDI))
+			{
+				selection.click();
+				System.out.println(selection.getText());
+				break;
+			}
+		}
+		Thread.sleep(25000);
+		
+		//Bad actor unit drop down
+		
+		WebElement badActorUnit = driver.findElement(By.xpath("//nz-select[@formcontrolname='unit']//input[contains(@class,'ant-select-selection')]"));
+		badActorUnit.click();
+		String unitBAValue= "B&S ? 2BT ? CLAY FILTER/ADDITIVE ? 1619";
+   	    List<WebElement> allValueOfUnit = driver.findElements(By.xpath("//div[@id='cdk-overlay-1']//nz-option-container//nz-option-item"));
+    	 for (WebElement selection1 : allValueOfUnit)
+			{
+				if(selection1.getText().equalsIgnoreCase(unitBAValue))
+				{
+					selection1.click();
+					System.out.println(selection1.getText());
+					break;
+				}
+			}
+    	 Thread.sleep(20000);
+    	 
+    	 //location drop down
+    	 
+    	 WebElement locationID = driver.findElement(By.xpath("//nz-form-control[contains(@class,'ant-form-item-control')]//nz-select[@formcontrolname='locationId']//input"));
+    	 locationID.click();
+ 		 String locBAValue= "D-4143";
+    	 List<WebElement> allValueOfLoc = driver.findElements(By.xpath("//div[@id='cdk-overlay-2']//nz-option-container//nz-option-item"));
+     	 for (WebElement selection2 : allValueOfLoc)
+ 			{
+ 				if(selection2.getText().equalsIgnoreCase(locBAValue))
+ 				{
+ 					selection2.click();
+ 					System.out.println(selection2.getText());
+ 					break;
+ 				}
+ 			}
+     	 Thread.sleep(8000);
+     	WebElement title = driver.findElement(By.xpath("//textarea[@formcontrolname='title']"));
+	    title.sendKeys("Raasi");
+	    Thread.sleep(5000);
+	    WebElement steward = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[5]"));
+	    steward.click();
+	    Thread.sleep(5000);
+	    String desiredOption1 = "Aaron Allen (GFKM)";
+	    List <WebElement> ddo1= driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddo1)
+	  {
+	    	if(option.getText().equalsIgnoreCase(desiredOption1))
+	    {
+	    		option.click();
+	    	break;
+	    	}
+	    }
+	    Thread.sleep(5000);
+	    WebElement organization = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[6]"));
+	    organization.click();
+	    Thread.sleep(5000);
+	    String desiredOption2 = "Reliability (FER)";
+	    List <WebElement> ddo2= driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddo2)
+	  {
+	    	if(option.getText().equalsIgnoreCase(desiredOption2))
+	    {
+	    		option.click();
+	    	break;
+	    	}
+	}
+	    Thread.sleep(5000);
+	    WebElement status = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[7]"));
+	    status.click();
+	    Thread.sleep(5000);
+	    String desiredOption3 = "Resolved";
+	    List <WebElement> ddo3= driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddo3)
+	  {
+	    	if(option.getText().equalsIgnoreCase(desiredOption3))
+	    {
+	    		option.click();
+	    	break;
+	    	}
+	}
+	    Thread.sleep(5000);
+	    WebElement problem = driver.findElement(By.xpath("//textarea[@formcontrolname='problemStatementConsequence']"));
+	    problem.sendKeys("Vindhya");
+	    Thread.sleep(5000);
+	    WebElement inputField = driver.findElement(By.xpath("//input[@placeholder='authorizeBenefitNumber']"));
+	    inputField.sendKeys("100");
+	    Thread.sleep(5000);
+	    WebElement save = driver.findElement(By.xpath("//button[@nztype='primary']"));
+	    save.click();
+	    Thread.sleep(5000);
+	    WebElement ok = driver.findElement(By.xpath("(//button[contains(@class,'ant-btn-primary')])[2]"));
+	    ok.click();	
+		//driver.close();
+	}
+	}
