@@ -1,0 +1,95 @@
+WebDriver driver = new EdgeDriver();
+		driver.get("
+https://oerigl-dev.azure.chevron.com/");
+		driver.manage().window().maximize();
+		Thread.sleep(5000);
+		//driver.findElement(By.xpath("//np-menu[@ng-reflect-location='1']//a[text()='data input']")).click();
+		driver.findElement(By.xpath("/html/body/app-root/np-menu/nav/ul/li[3]/a")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//nz-select[@formcontrolname='createNewData']")).click();
+		driver.findElement(By.xpath("/html/body/div/div/div/nz-option-container/div/cdk-virtual-scroll-viewport/div[1]/nz-option-item[4]/div")).click();
+		Thread.sleep(5000);
+	    WebElement unit = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[3]"));
+	    unit.click();
+	    Thread.sleep(5000);
+	    String desiredOptiona = "B&S ? 2BT ? AVGAS TEL INJECTION PLANT";
+	    List <WebElement> ddoa= driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddoa)
+	  {
+	    	if(option.getText().equalsIgnoreCase(desiredOptiona))
+	    {
+	    		option.click();
+	    	break;
+	    	}
+	    }
+	    Thread.sleep(4000);
+	    WebElement location = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[4]"));
+	    location.click();
+	    Thread.sleep(4000);
+	    String desiredOption = "1628-GENERAL";
+	    List <WebElement> ddo = driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddo)
+	    {
+	    	if(option.getText().equalsIgnoreCase(desiredOption))
+	    	{
+	    		option.click();
+	    		break;
+	    	}
+	    }
+	    Thread.sleep(5000);
+	    WebElement title = driver.findElement(By.xpath("//textarea[@formcontrolname='title']"));
+	    title.sendKeys("Raasi");
+	    Thread.sleep(5000);
+	    WebElement steward = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[5]"));
+	    steward.click();
+	    Thread.sleep(5000);
+	    String desiredOption1 = "Aaron Allen (GFKM)";
+	    List <WebElement> ddo1= driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddo1)
+	  {
+	    	if(option.getText().equalsIgnoreCase(desiredOption1))
+	    {
+	    		option.click();
+	    	break;
+	    	}
+	    }
+	    Thread.sleep(5000);
+	    WebElement organization = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[6]"));
+	    organization.click();
+	    Thread.sleep(5000);
+	    String desiredOption2 = "Reliability (FER)";
+	    List <WebElement> ddo2= driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddo2)
+	  {
+	    	if(option.getText().equalsIgnoreCase(desiredOption2))
+	    {
+	    		option.click();
+	    	break;
+	    	}
+	}
+	    Thread.sleep(5000);
+	    WebElement status = driver.findElement(By.xpath("(//nz-select[contains(@class,'ant-select')])[7]"));
+	    status.click();
+	    Thread.sleep(5000);
+	    String desiredOption3 = "Resolved";
+	    List <WebElement> ddo3= driver.findElements(By.xpath("//nz-option-container//nz-option-item"));
+	    for (WebElement option : ddo3)
+	  {
+	    	if(option.getText().equalsIgnoreCase(desiredOption3))
+	    {
+	    		option.click();
+	    	break;
+	    	}
+	}
+	    Thread.sleep(5000);
+	    WebElement problem = driver.findElement(By.xpath("//textarea[@formcontrolname='problemStatementConsequence']"));
+	    problem.sendKeys("Vindhya");
+	    Thread.sleep(5000);
+	    WebElement inputField = driver.findElement(By.xpath("//input[@placeholder='authorizeBenefitNumber']"));
+	    inputField.sendKeys("100");
+	    Thread.sleep(5000);
+	    WebElement save = driver.findElement(By.xpath("//button[@nztype='primary']"));
+	    save.click();
+	    Thread.sleep(5000);
+	    WebElement ok = driver.findElement(By.xpath("(//button[contains(@class,'ant-btn-primary')])[2]"));
+	    ok.click();
